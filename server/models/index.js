@@ -1,3 +1,7 @@
-const User = require('./User');
+// const User = require('./User');
+// Import typeDefs and resolvers
+const typeDefs = require('./typeDefs');
+const resolvers = require('./resolvers');
 
-module.exports = { User };
+// Export typeDefs and resolvers
+module.exports = { typeDefs, resolvers };
