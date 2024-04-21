@@ -11,7 +11,7 @@ const resolvers = {
         },
         // Query a single user
         user: async (parent, { username }) => {
-            return User.findOne({ username}).populate('books');
+            return User.findOne({ username }).populate('books');
         },
         // Query all books
         books: async () => {
@@ -29,13 +29,41 @@ const resolvers = {
     },
     Mutation: {
         // Mutation to add a user
-        addUser: async () => {},
+        addUser: async (parent, { username, email, password }) => {
+            const user = User.create({ username, email, password });
+            const token = signToken(user);
+            return { token, user };
+        },
         // Mutation for logging in
-        login: async () => {},
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+            if (!user) {
+                throw AuthenticationError;
+            }
+            const correctPw = await user.isCorrectPassword(password);
+            if (!correctPw) {
+                throw AuthenticationError;
+            }
+        },
         // Mutation to save a book to your profile
-        saveBook: async () => {},
+        saveBook: async (parent, { input }, context) => {
+            const { bookId, title, authors, description, image, link } = input;
+            const user = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { savedBooks: { bookId, title, authors, description, image, link } } },
+                { new: true }
+            );
+            return user;
+        },
         // Mutation to remove a book from your profile
-        removeBook: async () => {}
+        removeBook: async (parent, { bookId }, context) => {
+            const user = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $pull: { savedBooks: bookId } },
+                { new: true }
+            );
+            return user;
+        }
     }
 };
 
