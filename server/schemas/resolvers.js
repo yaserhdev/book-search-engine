@@ -1,22 +1,22 @@
 // Import User model, signToken, and AuthenticationError
-const { User, Book } = require('../models');
+const { User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 // Functions that will fulfill define queries from typeDefs
 const resolvers = {
     Query: {
-        // Query all users
-        users: async () => {
-            return User.find().populate('books');
-        },
-        // Query a single user
-        user: async (parent, { username }) => {
-            return User.findOne({ username }).populate('books');
-        },
-        // Query all books
-        books: async () => {
-            return Book.find().sort({ createdAt: -1 });
-        },
+        // // Query all users
+        // users: async () => {
+        //     return User.find().populate('books');
+        // },
+        // // Query a single user
+        // user: async (parent, { username }) => {
+        //     return User.findOne({ username }).populate('books');
+        // },
+        // // Query all books
+        // books: async () => {
+        //     return Book.find().sort({ createdAt: -1 });
+        // },
         // Query a single book
         // book: async () => {},
         // Query your own profile
@@ -31,6 +31,7 @@ const resolvers = {
         // Mutation to add a user
         addUser: async (parent, { username, email, password }) => {
             const user = User.create({ username, email, password });
+            console.log(user);
             const token = signToken(user);
             return { token, user };
         },

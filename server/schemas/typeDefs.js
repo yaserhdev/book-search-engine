@@ -18,13 +18,13 @@ type Book {
     link: String
     title: String
 }
+type Auth {
+    token: ID
+    user: User
+}
 
 # Define which queries the front end is allowed to make and what data is returned
 type Query {
-    users: [User]
-    user(username: String!): User
-    books(username: String!): [Book]
-    // book(bookId: ID!): Book
     me: User
 }
 
