@@ -6,10 +6,13 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
-        _id
-        thoughtText
-        createdAt
+      books {
+        authors 
+        description 
+        bookId 
+        image 
+        link 
+        title 
       }
     }
   }
@@ -21,15 +24,26 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      thoughts {
-        _id
-        thoughtText
-        thoughtAuthor
-        createdAt
+      books {
+        authors 
+        description 
+        bookId 
+        image 
+        link 
+        title 
       }
     }
   }
 `;
 
 export const QUERY_BOOKS = gql`
-query getBooks($)`
+query getBooks {
+  books {
+    authors 
+    description 
+    bookId 
+    image 
+    link 
+    title 
+  }
+}`;
