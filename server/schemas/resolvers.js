@@ -45,13 +45,17 @@ const resolvers = {
             if (!correctPw) {
                 throw AuthenticationError;
             }
+            const token = signToken(user);
+            return { token, user };
         },
         // Mutation to save a book to your profile
-        saveBook: async (parent, { input }, context) => {
-            const { bookId, title, authors, description, image, link } = input;
+        saveBook: async (parent, { bookData }, context) => {
+            const { bookId, title, authors, description, image, link } = bookData;
+            console.log(bookData);
+            console.log(context.user);
             const user = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: { savedBooks: { bookId, title, authors, description, image, link } } },
+                { $addToSet: { savedBooks: bookData } },
                 { new: true }
             );
             return user;
