@@ -22,7 +22,8 @@ const resolvers = {
         // Query your own profile
         me: async (parent, args, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id }).populate('books');
+                const userData = await User.findOne({ _id: context.user._id });
+                return userData;
             }
             throw AuthenticationError;
         }
@@ -62,12 +63,16 @@ const resolvers = {
         },
         // Mutation to remove a book from your profile
         removeBook: async (parent, { bookId }, context) => {
-            const user = await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { $pull: { savedBooks: bookId } },
-                { new: true }
-            );
-            return user;
+            // if (context.user) {
+                console.log(bookId);
+                console.log(context.user);
+                const user = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { savedBooks: bookId } },
+                    { new: true }
+                );
+                return user;
+            // }
         }
     }
 };
