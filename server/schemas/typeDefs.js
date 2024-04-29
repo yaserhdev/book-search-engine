@@ -1,6 +1,5 @@
 // Define typeDefs
 const typeDefs = `
-# Define which fields are accessible from the User model
 type User {
     _id: ID
     username: String
@@ -10,7 +9,6 @@ type User {
     bookCount: Int
 }
 
-# Define which fields are accessible from the Book schema
 type Book {
     authors: [String]
     description: String
@@ -34,12 +32,10 @@ type Auth {
     user: User
 }
 
-# Define which queries the front end is allowed to make and what data is returned
 type Query {
     me: User
 }
 
-# Define which mutations can be made by a user
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth

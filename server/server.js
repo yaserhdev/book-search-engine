@@ -8,7 +8,6 @@ const { authMiddleware } = require('./utils/auth');
 // Import two parts of a GraphQL schema
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
-// const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 // Define server
@@ -45,13 +44,6 @@ const startApolloServer = async () => {
     });
   });
 };
-
-// if we're in production, serve client/build as static assets
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, '../client/build')));
-// }
-
-// app.use(routes);
 
 // Start server
 startApolloServer();
