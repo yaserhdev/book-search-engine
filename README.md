@@ -52,8 +52,8 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 ```
 
 
-![Screenshot of deployed application] ()
-
 Application available for download at: https://github.com/yaserhdev/book-search-engine
 
-Live application: 
+Live application: https://book-search-engine-jw3f.onrender.com 
+
+![Screenshot of deployed application](client/src/assets/book-search-engine-screenshot.png)
